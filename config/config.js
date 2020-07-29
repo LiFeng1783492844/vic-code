@@ -19,7 +19,7 @@ export default {
       component: '@/layout/index',
       routes: [
         {
-          path: '/brand_recognition',
+          path: '/brand',
           component: '@/pages/brand/index',
         },
       ],

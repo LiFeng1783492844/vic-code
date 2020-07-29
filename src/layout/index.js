@@ -3,7 +3,7 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import '../css/Layout.css';
 import { Link } from 'umi';
-import BrandRecognition from '../pages/brand';
+import constant from '../utils/constant';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -12,6 +12,24 @@ const PageLayout = props => {
   function handleClick(e) {
     console.log(e);
   }
+
+  const renderMenu = data =>
+    data.map(element => {
+      if (element.children) {
+        return (
+          <SubMenu key={element.code} title={element.name}>
+            {renderMenu(element.children)}
+          </SubMenu>
+        );
+      } else {
+        return (
+          <Menu.Item key={element.code} icon={<EditOutlined />}>
+            <Link to={element.href} />
+            {element.name}
+          </Menu.Item>
+        );
+      }
+    });
 
   return (
     <Layout>
@@ -26,12 +44,7 @@ const PageLayout = props => {
             defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
           >
-            <SubMenu key="sub1" title="京东商品管理">
-              <Menu.Item key="1" icon={<EditOutlined />}>
-                <Link to="/brand_recognition" />
-                品牌确认
-              </Menu.Item>
-            </SubMenu>
+            {renderMenu(constant.menu)}
           </Menu>
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
@@ -47,7 +60,6 @@ const PageLayout = props => {
               minHeight: 280,
             }}
           >
-            {/* <BrandRecognition/> */}
             {props.children}
           </Content>
         </Layout>
