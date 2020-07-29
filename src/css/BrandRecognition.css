@@ -1,0 +1,33 @@
+/* 查询条件 */
+.query-criteria-card {
+  width: 100%;
+}
+
+.query-criteria-card .ant-card-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .brand-name-area,
+.brand-state-area {
+  flex-grow: 2;
+}
+
+.btn-area {
+  flex-grow: 1;
+} */
+.query-criteria-card .ant-card-head{
+    background-color: lightgray;
+    color:royalblue;
+}
+.query-criteria-card .brand-name-input {
+  width: 150px;
+}
+
+.brand-confirm-card .ant-card-head{
+    background-color: royalblue;
+    color: white;
+}
+.brand-confirm-card .ant-card-body {
+    padding: 0;
+}
