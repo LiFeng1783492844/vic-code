@@ -1,12 +1,17 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import BrandRecognition from './BrandRecognition';
 import '../css/Layout.css';
+import { Link } from 'umi';
+import BrandRecognition from '../pages/brand';
 
-export default props => {
-  const { SubMenu } = Menu;
-  const { Header, Content, Sider } = Layout;
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+
+const PageLayout = props => {
+  function handleClick(e) {
+    console.log(e);
+  }
 
   return (
     <Layout>
@@ -23,6 +28,7 @@ export default props => {
           >
             <SubMenu key="sub1" title="京东商品管理">
               <Menu.Item key="1" icon={<EditOutlined />}>
+                <Link to="/brand_recognition" />
                 品牌确认
               </Menu.Item>
             </SubMenu>
@@ -41,10 +47,13 @@ export default props => {
               minHeight: 280,
             }}
           >
-            <BrandRecognition />
+            {/* <BrandRecognition/> */}
+            {props.children}
           </Content>
         </Layout>
       </Layout>
     </Layout>
   );
 };
+
+export default PageLayout;

@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'dva';
 import { Table, Tag, Space, Card, Input, Select, Button } from 'antd';
-import '../css/BrandRecognition.css';
+import '../../../css/BrandRecognition.css';
 
 const { Option } = Select;
 
-export default props => {
+const BrandRecognitionComponent = props => {
   const columns = [
     {
       title: '品牌名称',
@@ -64,3 +65,7 @@ export default props => {
     </div>
   );
 };
+
+export default connect(({ brandRecognition }) => brandRecognition)(
+  BrandRecognitionComponent,
+);

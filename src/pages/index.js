@@ -1,6 +1,6 @@
 import React from 'react';
-import Layout from '../components/Layout';
+import PageLayout from '../layout/index';
 
 export default () => {
-  return <Layout />;
+  return <PageLayout />;
 };
