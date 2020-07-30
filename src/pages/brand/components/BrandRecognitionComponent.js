@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Table, Tag, Space, Card, Input, Select, Button } from 'antd';
+import { Table, Card, Input, Select, Button } from 'antd';
 import '../../../css/BrandRecognition.css';
 
 const { Option } = Select;
