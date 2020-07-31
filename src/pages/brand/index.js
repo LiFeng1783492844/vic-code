@@ -3,7 +3,7 @@ import BrandRecognitionComponent from './components/BrandRecognitionComponent';
 import BreadContent from '../../components/BreadContent/index';
 
 const BrandRecognition = props => {
-  console.log('BrandRecognition', props.location);
+  // console.log('BrandRecognition', props.location);
 
   return (
     <BreadContent>

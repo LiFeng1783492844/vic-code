@@ -40,21 +40,27 @@ class PageLayout extends React.Component {
   // 菜单点击事件
   handleClick = e => {
     const { key, keyPath } = e;
-    console.log('handleClick', keyPath);
+    // console.log('handleClick', keyPath);
 
     let breadNameDOM = this.createBreadcrumb(keyPath);
     this.updateBreadName(breadNameDOM);
   };
 
   // 格式化menu数据为Map<code,name>的形式
-  formatMenuToMap = (menuData, map) =>
+  formatMenuToMap = (menuData, map = {}) => {
     menuData.map(element => {
-      map.set(element.code, element.name);
+      /**
+       * 此处使用"[]"给map对象动态添加新属性，
+       * 在下文访问此新属性时也必须用"[]"，不能使用"."访问
+       */
+      map[`${element.code}`] = element.name;
 
       if (element.children) {
         this.formatMenuToMap(element.children, map);
       }
     });
+    return map;
+  };
 
   // 更新state.breadName
   updateBreadName = value => {
@@ -65,20 +71,18 @@ class PageLayout extends React.Component {
 
   // 创建面包屑组件，并返回
   createBreadcrumb = keyPath => {
-    let newMenuMap = new Map();
-    this.formatMenuToMap(constant.menu, newMenuMap);
-
-    console.log('newMenuMap', newMenuMap);
+    let newMenuMap = this.formatMenuToMap(constant.menu);
+    // console.log('newMenuMap', newMenuMap);
 
     // 翻转keyPath，以便遍历得到面包屑Item数组
     let reverseKeyPath = keyPath.reverse();
     let breadItemArr = [];
     reverseKeyPath.forEach(item => {
       breadItemArr.push(
-        <Breadcrumb.Item key={item}>{newMenuMap.get(item)}</Breadcrumb.Item>,
+        <Breadcrumb.Item key={item}>{newMenuMap[item]}</Breadcrumb.Item>,
       );
     });
-    console.log('breadItemArr', breadItemArr);
+    // console.log('breadItemArr', breadItemArr);
 
     return (
       <Breadcrumb separator="->" style={{ margin: '16px 0' }}>
