@@ -33,7 +33,7 @@ function getBrandList(query) {
   let list = [];
   brandList.forEach(item => {
     if (item.brandName.includes(brandName)) {
-      if (!status || item.status == status) {
+      if (status == -1 || item.status == status) {
         count++;
         list.push(item);
       }
