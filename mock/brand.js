@@ -28,9 +28,6 @@ function getResObj(content, totalPage, page, size) {
 }
 
 function getBrandList(query) {
-  console.log('yu', query);
-  // console.log('list',brandList);
-
   const { brandName, status, page, size } = query;
   let count = 0;
   let list = [];

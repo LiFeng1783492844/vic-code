@@ -5,11 +5,30 @@ export default {
   namespace: 'brandRecognition',
   state: {
     brandData: [],
+    // 查询条件：品牌名称
+    brandName: '',
+    // 查询条件：状态 [null]:查询所有；[0]:待确定；[1]:成功；[2]:失败；[3]:取消
+    status: null,
+    // 分页：当前第几页
+    page: 1,
+    // 分页：一页展示多少条数据
+    size: 10,
+    // 分页：总页数
+    totalPage: 0,
   },
   effects: {
     // 请求服务端数据
-    *requestBrandData({ payload }, { call, put }) {
-      const { data } = yield call(getBrand, payload);
+    *requestBrandData({ payload }, { call, put, select }) {
+      const params = yield select(({ brandRecognition }) => {
+        return {
+          brandName: brandRecognition.brandName,
+          status: brandRecognition.status,
+          page: brandRecognition.page,
+          size: brandRecognition.size,
+        };
+      });
+      console.log('params', params);
+      const { data } = yield call(getBrand, params);
       console.log('requestBrandData', data);
 
       yield put({ type: 'getBrandData', payload: { brandData: data.content } });
@@ -31,12 +50,6 @@ export default {
         if (pathname === '/brand') {
           dispatch({
             type: 'requestBrandData',
-            payload: {
-              brandName: '',
-              status: null,
-              page: 1,
-              size: 10,
-            },
           });
         }
       });
