@@ -1,5 +1,14 @@
 .ant-layout {
   height: 100%;
+  background-color: white;
+}
+
+.ant-layout-sider {
+  border-right: 1px solid lightgray;
+}
+
+.ant-layout-content {
+  padding: 0px !important;
 }
 
 h1 {

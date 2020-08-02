@@ -3,31 +3,44 @@
   width: 100%;
 }
 
+.query-criteria-card .ant-card-head {
+  background-color: #f4f3f3;
+  color: #007adb;
+}
+
 .query-criteria-card .ant-card-body {
-  display: flex;
-  justify-content: space-between;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-/* .brand-name-area,
-.brand-state-area {
-  flex-grow: 2;
-}
-
-.btn-area {
-  flex-grow: 1;
-} */
-.query-criteria-card .ant-card-head{
-    background-color: lightgray;
-    color:royalblue;
-}
 .query-criteria-card .brand-name-input {
   width: 150px;
 }
 
-.brand-confirm-card .ant-card-head{
-    background-color: royalblue;
-    color: white;
+.brand-confirm-card .ant-card-head {
+  background-color: #007adb;
+  color: white;
 }
+
 .brand-confirm-card .ant-card-body {
-    padding: 0;
+  padding: 0;
+}
+
+.ant-row {
+  width: 100%;
+}
+
+.ant-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnArea {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnArea button {
+  margin-left: 5px;
 }

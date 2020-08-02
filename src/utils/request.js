@@ -10,11 +10,19 @@ const parseJson = response => {
     console.log('parsejson.res', res);
     return {
       data: res,
-      statusCode: status,
-      message: statusText,
+      status,
       success: true,
     };
   });
+
+  // return response.text().then(res => {
+  //   console.log('parsejson.res', res);
+  //   return {
+  //     data: res,
+  //     status,
+  //     success: true,
+  //   };
+  // });
 };
 export default (url, options) => {
   return fetch(url, options)

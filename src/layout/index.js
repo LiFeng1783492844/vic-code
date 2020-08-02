@@ -109,7 +109,7 @@ class PageLayout extends React.Component {
               {this.renderMenu(constant.menu)}
             </Menu>
           </Sider>
-          <Layout style={{ padding: '0 24px 24px' }}>
+          <Layout style={{ padding: '0 12px 12px' }}>
             <Content
               className="site-layout-background"
               style={{
