@@ -18,10 +18,10 @@ function createBrandList(count, brandList = []) {
 const brandList = createBrandList(25);
 
 // 得到返回的对象
-function getResObj(content, totalPage, page, size) {
+function getResObj(content, total, page, size) {
   return {
     content,
-    totalPage,
+    total,
     page,
     size,
   };
@@ -42,10 +42,10 @@ function getBrandList(query) {
   let content = list.slice((page - 1) * size, page * size);
   // let content = list;
 
-  let totalPage = list.length;
+  let total = list.length;
   console.log('num', content.length);
 
-  return { content, totalPage, page, size };
+  return { content, total, page, size };
 }
 
 // 删除数据
@@ -73,6 +73,13 @@ function updateBrand(record) {
   });
 }
 
+function addBrand(record) {
+  const key = brandList.length + 1;
+  record.key = key;
+  console.log('add record 79', record);
+  brandList.push(record);
+}
+
 export default {
   'GET /api/brand': (req, res) => {
     /**
@@ -95,6 +102,12 @@ export default {
     const { record } = req.body;
     console.log('record 96', record);
     updateBrand(record);
+    res.json(200);
+  },
+
+  'PUT /api/brand': (req, res) => {
+    const { record } = req.body;
+    addBrand(record);
     res.json(200);
   },
 };

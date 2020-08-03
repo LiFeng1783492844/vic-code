@@ -58,7 +58,7 @@ const BrandRecognitionComponent = props => {
             okText="确定"
             cancelText="取消"
           >
-            <Button type="danger" size="small">
+            <Button className="btn-margin-left" type="danger" size="small">
               删除
             </Button>
           </Popconfirm>
@@ -93,8 +93,23 @@ const BrandRecognitionComponent = props => {
     });
   };
 
+  const clickAdd = () => {
+    const record = {
+      brandName: '',
+      status: 0,
+      operator: props.currentOperator,
+    };
+    dispatch({
+      type: 'brandRecognition/setState',
+      payload: { visible: true, record, modalType: 'add' },
+    });
+  };
+
   // 点击编辑按钮
   const clickEdit = record => {
+    console.log('edit record', record);
+    record.operator = props.currentOperator;
+    record.status = parseInt(record.status);
     dispatch({
       type: 'brandRecognition/setState',
       payload: { visible: true, record, modalType: 'update' },
@@ -131,7 +146,7 @@ const BrandRecognitionComponent = props => {
           : 'brandRecognition/addBrand',
       payload: { record },
     });
-    hideOperateModalForm();
+    // hideOperateModalForm();
   };
 
   // 隐藏对话框
@@ -177,8 +192,11 @@ const BrandRecognitionComponent = props => {
                 <Button type="primary" onClick={clickRefer}>
                   查 询
                 </Button>
-                <Button className="reset-btn" onClick={clickReset}>
+                <Button className="btn-margin-left" onClick={clickReset}>
                   重 置
+                </Button>
+                <Button className="add-btn btn-margin-left" onClick={clickAdd}>
+                  添 加
                 </Button>
               </Form.Item>
             </Col>
@@ -202,7 +220,7 @@ const BrandRecognitionComponent = props => {
           pageSizeOptions={[10, 20, 30]}
           current={props.page}
           onChange={onChange}
-          total={props.totalPage}
+          total={props.total}
         />
       </Card>
 

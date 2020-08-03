@@ -41,11 +41,21 @@
   justify-content: flex-end;
 }
 
-.btnArea button {
+.btn-margin-left {
   margin-left: 5px;
+}
+
+.add-btn {
+  background-color: #67C23A;
+  color: white;
 }
 
 .ant-pagination {
   display: flex;
   justify-content: center;
+  margin: 10px auto;
+}
+
+.query-criteria-card .ant-form-item {
+  margin-bottom: 0 !important;
 }

@@ -1,4 +1,10 @@
-import { getBrand, deleteBrand, updateBrand } from '../services/BrandService';
+import {
+  getBrand,
+  deleteBrand,
+  updateBrand,
+  addBrand,
+} from '../services/BrandService';
+import { getDate } from '../utils/date';
 
 export default {
   namespace: 'brandRecognition',
@@ -13,13 +19,15 @@ export default {
     // 分页：一页展示多少条数据
     size: 10,
     // 分页：总数据条数
-    totalPage: 0,
+    total: 0,
     // 编辑品牌信息对话框
     visible: false,
     // 正在被操作的记录
     record: null,
     // 对话框的类型，['update','add']
     modalType: 'update',
+
+    currentOperator: 'yu',
   },
   effects: {
     // 根据查询条件，得到数据
@@ -39,13 +47,13 @@ export default {
       console.log('params', params);
       const { data } = yield call(getBrand, params);
       console.log('getBrandData', data);
-      const { content, totalPage, page, size } = data;
+      const { content, total, page, size } = data;
 
       yield put({
         type: 'setState',
         payload: {
           brandData: content,
-          totalPage: parseInt(totalPage),
+          total: parseInt(total),
           page: parseInt(page),
           size: parseInt(size),
         },
@@ -70,7 +78,22 @@ export default {
       const { record } = payload;
 
       yield call(updateBrand, { record });
-      yield put({ type: 'getBrandData', payload: { page: 1 } });
+      yield put({
+        type: 'getBrandData',
+        payload: { page: 1, visible: false, record: null },
+      });
+    },
+
+    *addBrand({ payload }, { call, put, select }) {
+      const { record } = payload;
+      record['operationTime'] = getDate();
+      console.log('addBrand', record);
+
+      yield call(addBrand, { record });
+      yield put({
+        type: 'getBrandData',
+        payload: { page: 1, visible: false, record: null },
+      });
     },
   },
   reducers: {

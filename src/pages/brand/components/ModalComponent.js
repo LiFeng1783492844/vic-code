@@ -17,7 +17,7 @@ const ModalComponent = props => {
       .then(values => {
         console.log('values', values);
         record.brandName = values.brandName;
-        record.status = values.status;
+        record.status = parseInt(values.status);
         record.operationTime = getDate();
 
         submitForm(record, type);

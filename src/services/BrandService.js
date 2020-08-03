@@ -21,3 +21,10 @@ export const updateBrand = params => {
     method: 'POST',
   });
 };
+
+export const addBrand = params => {
+  return request(`/api/brand`, {
+    body: JSON.stringify(params),
+    method: 'PUT',
+  });
+};
