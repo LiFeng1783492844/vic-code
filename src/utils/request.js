@@ -14,18 +14,13 @@ const parseJson = response => {
       success: true,
     };
   });
-
-  // return response.text().then(res => {
-  //   console.log('parsejson.res', res);
-  //   return {
-  //     data: res,
-  //     status,
-  //     success: true,
-  //   };
-  // });
+};
+const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
 };
 export default (url, options) => {
-  return fetch(url, options)
+  return fetch(url, { ...options, headers })
     .then(checkStatus)
     .then(parseJson);
 };

@@ -1,5 +1,4 @@
-import request from '../utils/request';
-import { getBrand } from '../services/BrandService';
+import { getBrand, deleteBrand, updateBrand } from '../services/BrandService';
 
 export default {
   namespace: 'brandRecognition',
@@ -13,12 +12,22 @@ export default {
     page: 1,
     // 分页：一页展示多少条数据
     size: 10,
-    // 分页：总页数
+    // 分页：总数据条数
     totalPage: 0,
+    // 编辑品牌信息对话框
+    visible: false,
+    // 正在被操作的记录
+    record: null,
+    // 对话框的类型，['update','add']
+    modalType: 'update',
   },
   effects: {
-    // 请求服务端数据
+    // 根据查询条件，得到数据
     *getBrandData({ payload }, { call, put, select }) {
+      if (payload) {
+        console.log('设置', payload);
+        yield put({ type: 'setState', payload });
+      }
       const params = yield select(({ brandRecognition }) => {
         return {
           brandName: brandRecognition.brandName,
@@ -30,13 +39,47 @@ export default {
       console.log('params', params);
       const { data } = yield call(getBrand, params);
       console.log('getBrandData', data);
+      const { content, totalPage, page, size } = data;
 
-      yield put({ type: 'setState', payload: { brandData: data.content } });
+      yield put({
+        type: 'setState',
+        payload: {
+          brandData: content,
+          totalPage: parseInt(totalPage),
+          page: parseInt(page),
+          size: parseInt(size),
+        },
+      });
+    },
+
+    // 根据key删除数据
+    *deleteBrand({ payload }, { call, put, select }) {
+      yield call(deleteBrand, payload);
+
+      yield put({
+        type: 'getBrandData',
+        payload: {
+          page: 1,
+          visible: false,
+          record: null,
+        },
+      });
+    },
+
+    *updateBrand({ payload }, { call, put, select }) {
+      const { record } = payload;
+
+      yield call(updateBrand, { record });
+      yield put({ type: 'getBrandData', payload: { page: 1 } });
     },
   },
   reducers: {
     // 修改state数据
     setState(state, { payload }) {
+      console.log('setState', {
+        ...state,
+        ...payload,
+      });
       return {
         ...state,
         ...payload,

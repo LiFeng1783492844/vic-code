@@ -8,3 +8,16 @@ export const getBrand = params => {
     method: 'GET',
   });
 };
+
+export const deleteBrand = params => {
+  return request('/api/brand?' + qs.stringify(params), {
+    method: 'DELETE',
+  });
+};
+
+export const updateBrand = params => {
+  return request(`/api/brand`, {
+    body: JSON.stringify(params),
+    method: 'POST',
+  });
+};

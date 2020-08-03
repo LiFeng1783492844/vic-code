@@ -44,3 +44,8 @@
 .btnArea button {
   margin-left: 5px;
 }
+
+.ant-pagination {
+  display: flex;
+  justify-content: center;
+}

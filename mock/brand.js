@@ -27,24 +27,50 @@ function getResObj(content, totalPage, page, size) {
   };
 }
 
+// 查询数据
 function getBrandList(query) {
   const { brandName, status, page, size } = query;
-  let count = 0;
   let list = [];
   brandList.forEach(item => {
     if (item.brandName.includes(brandName)) {
       if (status == -1 || item.status == status) {
-        count++;
         list.push(item);
       }
     }
   });
 
   let content = list.slice((page - 1) * size, page * size);
-  let totalPage = list.length / size + 1;
+  // let content = list;
+
+  let totalPage = list.length;
   console.log('num', content.length);
 
   return { content, totalPage, page, size };
+}
+
+// 删除数据
+function deleteBrand(key) {
+  let idx = 0;
+  brandList.forEach((item, index) => {
+    if (item.key == key) {
+      idx = index;
+      return;
+    }
+  });
+  console.log('delete index', idx);
+  brandList.splice(idx, 1);
+}
+
+// 更新数据
+function updateBrand(record) {
+  brandList.forEach((item, index) => {
+    if (item.key == record.key) {
+      item.brandName = record.brandName;
+      item.status = parseInt(record.status);
+      item.operationTime = record.operationTime;
+      return;
+    }
+  });
 }
 
 export default {
@@ -56,5 +82,19 @@ export default {
      */
     let data = getBrandList(req.query);
     res.status(200).json(data);
+  },
+
+  'DELETE /api/brand': (req, res) => {
+    const { key } = req.query;
+    console.log('key', key);
+    deleteBrand(key);
+    res.status(200);
+  },
+
+  'POST /api/brand': (req, res) => {
+    const { record } = req.body;
+    console.log('record 96', record);
+    updateBrand(record);
+    res.json(200);
   },
 };
