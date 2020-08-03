@@ -11,6 +11,7 @@ const ModalComponent = props => {
     required: '${label} is required!',
   };
 
+  //   点击OK
   const handleOk = () => {
     form
       .validateFields()

@@ -93,6 +93,7 @@ const BrandRecognitionComponent = props => {
     });
   };
 
+  // 点击添加
   const clickAdd = () => {
     const record = {
       brandName: '',

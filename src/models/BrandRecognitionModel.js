@@ -74,6 +74,7 @@ export default {
       });
     },
 
+    // 更新
     *updateBrand({ payload }, { call, put, select }) {
       const { record } = payload;
 
@@ -84,6 +85,7 @@ export default {
       });
     },
 
+    // 添加
     *addBrand({ payload }, { call, put, select }) {
       const { record } = payload;
       record['operationTime'] = getDate();
